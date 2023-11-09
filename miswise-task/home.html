@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mewise</title>
+  </head>
+  <body>
+    <div>
+      <h1>Mewise</h1>
+      <button id="newButton">New</button>
+      <div id="quoteList">
+        <!-- Quotes will be displayed here -->
+      </div>
+    </div>
+
+    <script>
+      // Check if quotes exist in localStorage, otherwise, create an empty array
+      let quotes = JSON.parse(localStorage.getItem("quotes")) || [];
+
+      // Function to display quotes
+      function displayQuotes() {
+        const quoteList = document.getElementById("quoteList");
+        quoteList.innerHTML = "";
+
+        quotes.forEach((quote, index) => {
+          const quoteElement = document.createElement("p");
+          quoteElement.textContent = `Quote ${index + 1}: ${quote}`;
+          quoteList.appendChild(quoteElement);
+        });
+      }
+
+      // Function to add a new quote
+      document.getElementById("newButton").addEventListener("click", () => {
+        const newQuote = prompt("Enter your new quote or data:");
+        if (newQuote) {
+          quotes.push(newQuote);
+          localStorage.setItem("quotes", JSON.stringify(quotes));
+          displayQuotes();
+        }
+      });
+
+      // Display quotes when the page loads
+      displayQuotes();
+    </script>
+  </body>
+</html>
